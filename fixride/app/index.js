@@ -132,89 +132,105 @@ function App() {
             <Stack.Screen name="TrackLive" component={TrackLive} />
             <Stack.Screen name="CateCard" component={CateCard} />
             <Stack.Screen
-            name="CatList"
-            component={DisplayContent}
-            options={({ route }) => ({
-              title: `Cat List ${route.params.cardid}`,
-            })}
-          />
-          <Stack.Screen
-            name="Status"
-            component={Status}
-            options={({ route }) => ({
-              title: `Status ${route.params.Requestid}`,
-            })}
-          />
+              name="CatList"
+              component={DisplayContent}
+              options={({ route }) => ({
+                title: `Cat List ${route.params.cardid}`,
+              })}
+            />
+            <Stack.Screen
+              name="Status"
+              component={Status}
+              options={({ route }) => ({
+                title: `Status ${route.params.Requestid}`,
+              })}
+            />
 
-          <Stack.Screen
-            name="Payment"
-            component={MecRequestDetails}
-            options={({ route }) => ({
-              title: `Payment ${route.params.Requestid,route.params.Payment}`,
-            })}
-          />
+            <Stack.Screen
+              name="Payment"
+              component={MecRequestDetails}
+              options={({ route }) => ({
+                title: `Payment ${
+                  (route.params.Requestid, route.params.Payment)
+                }`,
+              })}
+            />
 
-          <Stack.Screen
-            name="Req_details"
-            component={MecRequestDetail}
-            options={({ route }) => ({
-              title: `Req_details ${route.params.Requestid,route.params.Date,route.params.Username}`,
-            })}
-          />
+            <Stack.Screen
+              name="Req_details"
+              component={MecRequestDetail}
+              options={({ route }) => ({
+                title: `Req_details ${
+                  (route.params.Requestid,
+                  route.params.Date,
+                  route.params.Username,
+                  route.params.garageName)
+                }`,
+              })}
+            />
 
-          <Stack.Screen
-            name="Garage_info"
-            component={GarageInfo}
-            options={({ route }) => ({
-              title: `Garage_info ${route.params.iid,route.params.userlatitude,route.params.userlongitude}`,
-            })}
-          />
+            <Stack.Screen
+              name="Garage_info"
+              component={GarageInfo}
+              options={({ route }) => ({
+                title: `Garage_info ${
+                  (route.params.iid,
+                  route.params.userlatitude,
+                  route.params.userlongitude,
+                  route.params.categoryId)
+                }`,
+              })}
+            />
 
-          <Stack.Screen
-            name="Ongoing_details"
-            component={OngoingRequestDetail}
-            options={({ route }) => ({
-              title: `Ongoing_details ${
-                (route.params.Requestid,
-                route.params.Date,
-                route.params.Username)
-              }`,
-            })}
-          />
+            <Stack.Screen
+              name="Ongoing_details"
+              component={OngoingRequestDetail}
+              options={({ route }) => ({
+                title: `Ongoing_details ${
+                  (route.params.Requestid,
+                  route.params.Date,
+                  route.params.Username)
+                }`,
+              })}
+            />
 
-          <Stack.Screen
-            name="Com_details"
-            component={ComRequestDetail}
-            options={({ route }) => ({
-              title: `Com_details ${
-                (route.params.Requestid,
-                route.params.Date,
-                route.params.Username)
-              }`,
-            })}
-          />
+            <Stack.Screen
+              name="Com_details"
+              component={ComRequestDetail}
+              options={({ route }) => ({
+                title: `Com_details ${
+                  (route.params.Requestid,
+                  route.params.Date,
+                  route.params.Username)
+                }`,
+              })}
+            />
 
-          <Stack.Screen
-            name="Can_details"
-            component={CanRequestDetail}
-            options={({ route }) => ({
-              title: `Can_details ${
-                (route.params.Requestid,
-                route.params.Date,
-                route.params.Username)
-              }`,
-            })}
-          />
+            <Stack.Screen
+              name="Can_details"
+              component={CanRequestDetail}
+              options={({ route }) => ({
+                title: `Can_details ${
+                  (route.params.Requestid,
+                  route.params.Date,
+                  route.params.Username)
+                }`,
+              })}
+            />
 
-          <Stack.Screen
-            name="Form"
-            component={Form}
-            options={({ route }) => ({
-              title: `Form ${route.params.garageid,route.params.userlatitude,route.params.userlongitude}`,
-            })}
-          />
+            <Stack.Screen
+              name="Form"
+              component={Form}
+              options={({ route }) => ({
+                title: `Form ${
+                  (route.params.garageid,
+                  route.params.userlatitude,
+                  route.params.userlongitude,
+                  route.params.garageName)
+                }`,
+              })}
+            />
 
-         
             {/* <Stack.Screen name="UserScreen1" component={UserScreen1} /> */}
           </Stack.Navigator>
         ) : userType === "Garage Owner" ? (
@@ -226,24 +242,22 @@ function App() {
             <Stack.Screen name="MechanicList" component={MechanicList} />
             <Stack.Screen name="AddGarage" component={AddGarage} />
             <Stack.Screen name="ReqStatusGMside" component={ReqStatusGMside} />
-            
+
             <Stack.Screen
-            name="Manager_Status"
-            component={ManagerStatus}
-            options={({ route }) => ({
-              title: `Manager_Status ${route.params.Id}`,
-            })}
-          />
+              name="Manager_Status"
+              component={ManagerStatus}
+              options={({ route }) => ({
+                title: `Manager_Status ${route.params.Id}`,
+              })}
+            />
 
-          <Stack.Screen
-            name="MacList"
-            component={AvailableMac}
-            options={({ route }) => ({
-              title: `MacList ${route.params.Id}`,
-            })}
-          />
-
-
+            <Stack.Screen
+              name="MacList"
+              component={AvailableMac}
+              options={({ route }) => ({
+                title: `MacList ${route.params.Id}`,
+              })}
+            />
           </Stack.Navigator>
         ) : userType === "Mechanic" ? (
           <Stack.Navigator>

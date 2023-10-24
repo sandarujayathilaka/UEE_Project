@@ -27,23 +27,23 @@ const cardData = [
   //   imageSource: require("../../assets/tuktuk.png"), // Replace with your image path
   // },
   {
-    id: "Bicycle",
-    title: "Bike",
+    id: "Motorcycles",
+    title: "Motorcycles",
     imageSource: require("../../assets/bike.png"), // Replace with your image path
   },
   {
-    id: "Truck",
-    title: "Truck",
+    id: "Heavy",
+    title: "Heavy Vehicles",
     imageSource: require("../../assets/truck.png"), // Replace with your image path
   },
   {
-    id: "Bus",
-    title: "Bus",
+    id: "Standard",
+    title: "Light Vehicles",
     imageSource: require("../../assets/bus.png"), // Replace with your image path
   },
   {
     id: "All",
-    title: "Any",
+    title: "All",
     imageSource: require("../../assets/All.png"), // Replace with your image path
   },
 ];
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     marginTop: 8,
     textAlign: "center",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     color: "#333333", // Dark text color
   },
