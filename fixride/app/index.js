@@ -32,8 +32,13 @@ import AddMechanic from "../src/components/AddMechanic";
  import MechanicList from "../src/components/MechanicList";
  import AddGarage from "../src/components/AddGarage";
 import ReqStatusGMside from "../src/components/ReqStatusGMside";
-
-
+import MechHome from "../src/components/MechHome";
+import Job from "../src/components/Job";
+import JobOverview from "../src/components/JobOverview";
+import JobStatusUpdate from "../src/components/JobStatusUpdate";
+import Report from "../src/components/Report";
+import MechStatusUpdate from "../src/components/MechStatusUpdate";
+import Dashboard from "../src/components/History/Dashboard";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -102,7 +107,7 @@ function App() {
             } else if (userType === "Garage Owner") {
               navigationRef.current.navigate("GarageMngrDash");
             } else if (userType === "Mechanic") {
-              navigationRef.current.navigate("TrackLive");
+              navigationRef.current.navigate("MechHome");
             }
           }
         })
@@ -124,9 +129,7 @@ function App() {
         userType === "User" ? (
           <Stack.Navigator>
             <Stack.Screen name="FIXRIDE" component={HomeTabs} />
-            <Stack.Screen name="Home" component={Home} />
-
-            <Stack.Screen name="ChooseLocation" component={ChooseLocation} />
+           
 
             <Stack.Screen name="MyActivity" component={MyActivity} />
             <Stack.Screen name="TrackLive" component={TrackLive} />
@@ -247,7 +250,15 @@ function App() {
           </Stack.Navigator>
         ) : userType === "Mechanic" ? (
           <Stack.Navigator>
-            <Stack.Screen name="TrackLive" component={TrackLive} />
+            <Stack.Screen name="MechHome" component={MechHome} />
+            <Stack.Screen name="Job" component={Job} />
+            <Stack.Screen name="JobOverview" component={JobOverview} />
+            <Stack.Screen name="JobStatusUpdate" component={JobStatusUpdate} />
+            <Stack.Screen name="Report" component={Report} />
+            <Stack.Screen name="MechStatusUpdate" component={MechStatusUpdate} />
+            <Stack.Screen name="Home" component={Home} />
+
+<Stack.Screen name="ChooseLocation" component={ChooseLocation} />
 
             {/* Define other Mechanic related screens */}
           </Stack.Navigator>
@@ -278,6 +289,8 @@ function HomeTabs() {
             iconName = "home"; // Use the home icon here
           } else if (route.name === "Tasks") {
             iconName = "clipboard"; // Use the clipboard icon here
+          } else if (route.name === "User") {
+            iconName = "user"; // Use the clipboard icon here
           }
 
           // Return the FontAwesome5 icon
@@ -288,6 +301,7 @@ function HomeTabs() {
     >
       <Tab.Screen name="Home" component={CateCard} />
       <Tab.Screen name="Tasks" component={MyActivity} />
+      <Tab.Screen name="User" component={Dashboard} />
     </Tab.Navigator>
   );
 }

@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { db } from "../../src/config/firebase";
+import { db,firebase } from "../../src/config/firebase";
 import {
   Image,
   ScrollView,
@@ -49,10 +49,9 @@ const cardData = [
 ];
 
 function CateCard() {
-  const [userData, setUserData] = useState({});
   const [timeGreeting, setTimeGreeting] = useState("");
-  const userEmail = "deno@gmail.com"; // Replace with the user's email
-
+  
+  const [name, setName] = useState('');
   const navigation = useNavigation();
 
   const handleCardClick = (id) => {
@@ -63,33 +62,22 @@ function CateCard() {
     navigation.navigate("CatList", { cardid: id });
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Create a Firestore query based on the provided conditions
-        const requestQuery = query(
-          collection(db, "users"),
-          where("email", "==", userEmail)
-        );
-
-        // Subscribe to real-time updates using onSnapshot
-        const unsubscribe = onSnapshot(requestQuery, (snapshot) => {
-          if (!snapshot.empty) {
-            // If there are documents in the result, update the component state
-            const doc = snapshot.docs[0];
-            setUserData(doc.data()); // Set userData with the document data
-            console.log(doc.data()); // Log the data for debugging
-          }
-        });
-
-        return () => unsubscribe(); // Unsubscribe when the component unmounts
-      } catch (error) {
-        console.error("Error retrieving documents: ", error);
+  useEffect(()=>{
+    firebase.firestore().collection('users')
+    .doc(firebase.auth().currentUser.uid).get()
+    .then((snapshot)=>{
+      if(snapshot.exists){
+        setName(snapshot.data())
       }
-    };
+      else{
+        console.log('User does not exist');
+      }
+    }).catch((error)=>{
+      alert(error);
+    })
+  },[])
+  const userEmail = name.email; 
 
-    fetchData();
-  }, []); // Empty dependency array, as it's only supposed to run once
 
   const getTimeBasedGreeting = () => {
     const now = new Date();
@@ -114,7 +102,7 @@ function CateCard() {
     <ScrollView style={styles.container}>
       <View style={styles.imageContainer}>
         <Image source={homeLogo} style={styles.logocardImage} />
-        <Text style={styles.greetingText}>Hi, {userData.firstname}</Text>
+        <Text style={styles.greetingText}>Hi, {name.firstname}</Text>
         <Text style={styles.timeGreetingText}>{timeGreeting} ...</Text>
       </View>
       <View style={styles.gridContainer}>

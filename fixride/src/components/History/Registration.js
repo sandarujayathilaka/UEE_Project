@@ -53,14 +53,8 @@ const Registration = () => {
       }
       if(password === confirmPassword){
       await firebase.auth().createUserWithEmailAndPassword(email,password)
-      .then(() => {
-        firebase.auth().currentUser.sendEmailVerification({
-          handleCodeInApp:true,
-          url:'https://fixride-50426.firebaseapp.com',
-
-        })
         .then(() => {
-          alert('Verification email sent')
+          alert('Account created successfully')
         }).catch((error) => {
           alert(error.message)
         })
@@ -78,10 +72,7 @@ const Registration = () => {
         .catch((error) => {
           alert(error.message)
         })
-      })
-      .catch((error) => {
-        alert(error.message)
-      })
+      
     }else{
       alert('Password mismatching');
     }
