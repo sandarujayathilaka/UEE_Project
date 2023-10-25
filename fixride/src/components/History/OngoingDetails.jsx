@@ -389,7 +389,7 @@ const handleOKPress = async () => {
         <View style={styles.modalContainerr}>
           <View style={styles.modalContentt}>
             <Text style={styles.modalTextt}>Mechanic didn't start his journey.</Text>
-            <Text style={styles.modalText}>Please stay calm.</Text>
+            <Text style={styles.modalTextt}>Please stay calm.</Text>
             <View style={styles.modalButtonss}>
               <Button title="Close" onPress={errorcloseModal} />
               <Button title="Ok" onPress={confirm} />

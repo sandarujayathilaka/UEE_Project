@@ -15,6 +15,11 @@ import { firebase } from '../config/firebase';
 
 const cardData = [
   {
+    id: "addGarage",
+    title: "Add New Garage",
+    imageSource: require("../../assets/garageimage.png"),
+  },
+  {
     id: "addMechanic",
     title: "Add New Mechanics",
     imageSource: require("../../assets/addMac.png"),
@@ -101,6 +106,9 @@ useEffect(()=>{
 
   const handleCardClick = (id) => {
     switch (id) {
+      case 'addGarage':
+        navigation.navigate("AddGarage");
+        break;
       case 'addMechanic':
         //router.push(`/add-mechanic/add`);
         navigation.navigate("AddMechanic");

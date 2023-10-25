@@ -76,7 +76,7 @@ function CateCard() {
       alert(error);
     })
   },[])
-  const userEmail = name.email; 
+
 
 
   const getTimeBasedGreeting = () => {
