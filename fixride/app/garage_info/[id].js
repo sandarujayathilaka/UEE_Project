@@ -31,9 +31,10 @@ const GarageInfo = () => {
   // const userLatitude = params.userLatitude
   // const userLongitude =params.userLongitude
   const route = useRoute();
-  const { iid } = route.params;
+  const { iid,categoryId } = route.params;
   console.log("1", iid);
   let Id = iid;
+  const categoryid = categoryId
   console.log("2", Id);
 
   // const userLatitude = params.userLatitude
@@ -74,6 +75,7 @@ console.log(garageCollectionRef);
          const doc = querySnapshot.docs[0];
          const data = doc.data();
          setGarageData(data);
+         console.log(data.name)
          setLoading(false);
 
          // Check if the garage is closed
@@ -126,9 +128,13 @@ console.log(garageCollectionRef);
     //      userLongitude: userLongitude,
     //    },
     //  });
-    navigation.navigate("Form", { garageid: id,
+    navigation.navigate("Form", {
+      garageid: id,
       userlatitude: userLatitude,
-      userlongitude: userLongitude, });
+      userlongitude: userLongitude,
+      cateId: categoryid,
+      garageName: garageData.name,
+    });
    }
  };
 

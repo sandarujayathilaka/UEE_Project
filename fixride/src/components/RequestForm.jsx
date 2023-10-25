@@ -25,6 +25,7 @@ import { useNavigation } from "@react-navigation/native";
 const RequestForm = (props) => {
   const navigation = useNavigation();
   const garageId = props.garageId
+    const garageName = props.garageName;
   const userLatitude = props.userLatitude
   const userLongitude = props.userLongitude
   const [veheNum, setVeheNum] = useState("");
@@ -35,7 +36,15 @@ const RequestForm = (props) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [reqDate, setDateTime] = useState("");
   const [currentUser, setUser] = useState("");
-   const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("");
+   const [errorMessage, setErrorMessage] = useState("");
+   const [validation, setValidation] = useState({
+     veheNum: true,
+     model: true,
+     matter: true,
+     location: true,
+   });
+
 useEffect(() => {
   // Get the current date and time when the component mounts
   const currentDate = new Date();
@@ -59,6 +68,22 @@ useEffect(() => {
 
 
   const handleSave = async () => {
+
+    const newValidation = {
+      veheNum: !!veheNum,
+      model: !!model,
+      matter: !!matter,
+      location: !!location,
+    };
+
+    setValidation(newValidation);
+
+      if (!veheNum || !model || !matter || !location) {
+        setErrorMessage("Please fill in all the required fields.");
+        return;
+      }
+
+        
   
     const requestDb = collection(db, "request");
 
@@ -133,6 +158,7 @@ useEffect(() => {
       console.log(veheNum);
       handleItemPress(veheNum);
     }
+    setErrorMessage("");
   };
 
 
@@ -230,7 +256,8 @@ useEffect(() => {
           paymentmethod: payment,
           vehematter: matter,
           power: selectedItem,
-          Username: currentUser, });
+          Username: currentUser,
+        garageName: garageName, });
    
     console.log(`Clicked with form ${id}`);
   };
@@ -240,7 +267,10 @@ useEffect(() => {
 
       <Text style={styles.label}>Vehicle Number:</Text>
       <TextInput
-        style={styles.input}
+        style={[
+          styles.input,
+          !validation.veheNum && styles.inputError, // Apply red border for validation failure
+        ]}
         onChangeText={(text) => setVeheNum(text)}
         value={veheNum}
         placeholder="Enter your Vehicle Number"
@@ -248,7 +278,10 @@ useEffect(() => {
 
       <Text style={styles.label}>Vehicle Model:</Text>
       <TextInput
-        style={styles.input}
+        style={[
+          styles.input,
+          !validation.model && styles.inputError, // Apply red border for validation failure
+        ]}
         onChangeText={(text) => setModel(text)}
         value={model}
         placeholder="Enter Vehicle Model"
@@ -256,7 +289,10 @@ useEffect(() => {
 
       <Text style={styles.label}>Location:</Text>
       <TextInput
-        style={styles.input}
+        style={[
+          styles.input,
+          !validation.location && styles.inputError, // Apply red border for validation failure
+        ]}
         onChangeText={(text) => setLocation(text)}
         value={location}
         placeholder="Enter Vehicle Model"
@@ -264,7 +300,10 @@ useEffect(() => {
 
       <Text style={styles.label}>Matter:</Text>
       <TextInput
-        style={styles.textArea}
+        style={[
+          styles.textArea,
+          !validation.matter && styles.inputError, // Apply red border for validation failure
+        ]}
         multiline={true}
         numberOfLines={4}
         onChangeText={(text) => setMatter(text)}
@@ -325,6 +364,10 @@ useEffect(() => {
           <Image source={{ uri: selectedImage }} style={styles.image} />
         )}
       </View>
+
+      {errorMessage ? (
+        <Text style={styles.errorText}>{errorMessage}</Text>
+      ) : null}
 
       <TouchableOpacity style={styles.customButton} onPress={handleSave}>
         <Text style={styles.buttonText}>Send Request</Text>
@@ -403,7 +446,6 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 7,
     margin: 10,
-    
   },
   imagePickerButton: {
     backgroundColor: "#007AFF",
@@ -430,6 +472,15 @@ const styles = StyleSheet.create({
   iconRow: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  errorText: {
+    color: "red",
+    fontSize: 16,
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  inputError: {
+    borderColor: "red",
   },
 });
 export default RequestForm;

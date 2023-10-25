@@ -21,14 +21,14 @@ export default function Form() {
   let userLatitude = userlatitude;
   console.log("2", userLatitude);
 
-  const { userlongitude } = route.params;
+  const { userlongitude,garageName } = route.params;
   console.log("1", userlongitude);
   let userLongitude = userlongitude;
   console.log("2", userLongitude);
 
   return (
     <View>
-      <RequestForm garageId={garageId} userLatitude={userLatitude} userLongitude={userLongitude} />
+      <RequestForm garageId={garageId} userLatitude={userLatitude} userLongitude={userLongitude} garageName={garageName} />
     </View>
   );
 }

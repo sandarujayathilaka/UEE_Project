@@ -90,6 +90,7 @@ const DisplayContent = () => {
         userlatitude: userLocation.latitude,
     
         userlongitude: userLocation.longitude,
+        categoryId: cardId,
       });
   };
 

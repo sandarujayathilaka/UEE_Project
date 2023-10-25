@@ -23,7 +23,7 @@ export default function RequestDetails(props) {
   const navigation = useNavigation();
   const date = props.date;
   const user = props.username
-
+  const garageName = props.garageName;
 
 
    const[requestDetails,setRequest] = useState({})
@@ -251,7 +251,7 @@ const handleOKPress = async () => {
             <Text style={styles.topic}>Activity Details</Text>
             <View style={styles.serviceColumn}>
               <View>
-                <Text style={styles.mainLable}>ddk</Text>
+                <Text style={styles.mainLable}>{garageName}</Text>
                 <Text style={{ fontSize: 16 }}>0774333450</Text>
               </View>
               <View style={styles.datetime}>
@@ -320,7 +320,10 @@ const handleOKPress = async () => {
               <View style={styles.serviceColumn}>
                 <View style={{ margin: 10 }}>
                   <Text style={styles.mainLable}>Mechanic Details</Text>
-                  <TouchableOpacity onPress={() => handleItemPress()} style={styles.trackStatusButton}>
+                  <TouchableOpacity
+                    onPress={() => handleItemPress()}
+                    style={styles.trackStatusButton}
+                  >
                     <Text style={styles.trackStatusButtonText}>Live Track</Text>
                   </TouchableOpacity>
                   <Text
@@ -412,7 +415,7 @@ const handleOKPress = async () => {
               </View>
             </View>
             <View>
-              { requestDetails.payment !== "Not Calculated" && (
+              {requestDetails.payment !== "Not Calculated" && (
                 <TouchableOpacity
                   style={styles.payButton}
                   onPress={handlePayment}
