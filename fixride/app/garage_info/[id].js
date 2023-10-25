@@ -31,7 +31,7 @@ const GarageInfo = () => {
   // const userLatitude = params.userLatitude
   // const userLongitude =params.userLongitude
   const route = useRoute();
-  const { iid,categoryId } = route.params;
+  const { iid,categoryId,firstname,phone } = route.params;
   console.log("1", iid);
   let Id = iid;
   const categoryid = categoryId
@@ -134,6 +134,8 @@ console.log(garageCollectionRef);
       userlongitude: userLongitude,
       cateId: categoryid,
       garageName: garageData.name,
+      phone:phone,
+      firstname:firstname
     });
    }
  };

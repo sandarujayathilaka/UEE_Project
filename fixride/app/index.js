@@ -129,7 +129,6 @@ function App() {
         userType === "User" ? (
           <Stack.Navigator>
             <Stack.Screen name="FIXRIDE" component={HomeTabs} />
-           
 
             <Stack.Screen name="MyActivity" component={MyActivity} />
             <Stack.Screen name="TrackLive" component={TrackLive} />
@@ -138,7 +137,11 @@ function App() {
               name="CatList"
               component={DisplayContent}
               options={({ route }) => ({
-                title: `Cat List ${route.params.cardid}`,
+                title: `Cat List ${
+                  (route.params.cardid,
+                  route.params.phone,
+                  route.params.firstname)
+                }`,
               })}
             />
             <Stack.Screen
@@ -180,7 +183,9 @@ function App() {
                   (route.params.iid,
                   route.params.userlatitude,
                   route.params.userlongitude,
-                  route.params.categoryId)
+                  route.params.categoryId,
+                  route.params.phone,
+                  route.params.firstname)
                 }`,
               })}
             />
@@ -229,7 +234,9 @@ function App() {
                   (route.params.garageid,
                   route.params.userlatitude,
                   route.params.userlongitude,
-                  route.params.garageName)
+                  route.params.garageName,
+                  route.params.phone,
+                  route.params.firstname)
                 }`,
               })}
             />
@@ -269,10 +276,13 @@ function App() {
             <Stack.Screen name="JobOverview" component={JobOverview} />
             <Stack.Screen name="JobStatusUpdate" component={JobStatusUpdate} />
             <Stack.Screen name="Report" component={Report} />
-            <Stack.Screen name="MechStatusUpdate" component={MechStatusUpdate} />
+            <Stack.Screen
+              name="MechStatusUpdate"
+              component={MechStatusUpdate}
+            />
             <Stack.Screen name="Home" component={Home} />
 
-<Stack.Screen name="ChooseLocation" component={ChooseLocation} />
+            <Stack.Screen name="ChooseLocation" component={ChooseLocation} />
 
             {/* Define other Mechanic related screens */}
           </Stack.Navigator>

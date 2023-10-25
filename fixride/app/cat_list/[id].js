@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { router, useGlobalSearchParams } from "expo-router";
@@ -29,7 +30,7 @@ const DisplayContent = () => {
   const route = useRoute();
   const navigation = useNavigation();
 
-  const { cardid } = route.params;
+  const { cardid,phone,firstname } = route.params;
   let cardId = cardid;
 
   imageSource = require("../../assets/Picture2.png");
@@ -91,6 +92,8 @@ const DisplayContent = () => {
     
         userlongitude: userLocation.longitude,
         categoryId: cardId,
+        phone:phone,
+        firstname:firstname
       });
   };
 
@@ -189,7 +192,7 @@ const DisplayContent = () => {
     <View>
       <Text style={styles.topic}>Nearby Garages</Text>
       {loading ? (
-        <Text>Loading...</Text>
+        <ActivityIndicator size="large" color="orange" style={{marginTop:260}} />
       ) : (
         <FlatList
           data={garages}

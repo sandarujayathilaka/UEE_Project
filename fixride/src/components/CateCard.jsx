@@ -51,7 +51,7 @@ const cardData = [
 function CateCard() {
   const [timeGreeting, setTimeGreeting] = useState("");
   
-  const [name, setName] = useState('');
+  const [userdata, setUserData] = useState('');
   const navigation = useNavigation();
 
   const handleCardClick = (id) => {
@@ -59,7 +59,7 @@ function CateCard() {
 
     // Navigate to the "cat_list/[id]" screen with the cardId as a parameter
 
-    navigation.navigate("CatList", { cardid: id });
+    navigation.navigate("CatList", { cardid: id ,phone:userdata.phone,firstname:userdata.firstname });
   };
 
   useEffect(()=>{
@@ -67,7 +67,8 @@ function CateCard() {
     .doc(firebase.auth().currentUser.uid).get()
     .then((snapshot)=>{
       if(snapshot.exists){
-        setName(snapshot.data())
+        setUserData(snapshot.data())
+        console.log(userdata)
       }
       else{
         console.log('User does not exist');
@@ -102,7 +103,7 @@ function CateCard() {
     <ScrollView style={styles.container}>
       <View style={styles.imageContainer}>
         <Image source={homeLogo} style={styles.logocardImage} />
-        <Text style={styles.greetingText}>Hi, {name.firstname}</Text>
+        <Text style={styles.greetingText}>Hi, {userdata.firstname}</Text>
         <Text style={styles.timeGreetingText}>{timeGreeting} ...</Text>
       </View>
       <View style={styles.gridContainer}>

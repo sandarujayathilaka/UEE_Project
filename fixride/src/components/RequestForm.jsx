@@ -28,10 +28,13 @@ const RequestForm = (props) => {
     const garageName = props.garageName;
   const userLatitude = props.userLatitude
   const userLongitude = props.userLongitude
+  const firstname= props.firstname
+  const phone= props.phone
   const [veheNum, setVeheNum] = useState("");
   const [model, setModel] = useState("");
   const [payment, setPayment] = useState("Cash");
   const [matter, setMatter] = useState("");
+  const [phoneNum, setPhone] = useState(phone);
   const [selectedItem, setSelectedItem] = useState("Hybrid");
   const [selectedImage, setSelectedImage] = useState(null);
   const [reqDate, setDateTime] = useState("");
@@ -50,7 +53,7 @@ useEffect(() => {
   const currentDate = new Date();
   const formattedDate = currentDate.toISOString();
   setDateTime(formattedDate);
-  setUser("Sandaru");
+  setUser(firstname);
 
   // Replace "YOUR_API_KEY" with your actual Google Maps Geocoding API key
   const apiKey = "AIzaSyACdwaw1h6cATe6laoMWoayEniMemjgVkE";
@@ -68,6 +71,18 @@ useEffect(() => {
 
 
   const handleSave = async () => {
+
+    const generateOrderId = () => {
+      const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let result = "";
+      for (let i = 0; i < 10; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+      }
+      return result;
+    };
+
+    const ReqId = generateOrderId();
 
     const newValidation = {
       veheNum: !!veheNum,
@@ -119,8 +134,12 @@ useEffect(() => {
             macName: "",
             garageId: garageId,
             latitude: userLatitude,
-            logitude:userLongitude,
-            location:location
+            longitude: userLongitude,
+            location: location,
+            phone: phoneNum,
+            requestId: ReqId,
+            rate: "0",
+            comment:""
           });
           console.log(veheNum);
 
@@ -138,7 +157,7 @@ useEffect(() => {
         matter: matter,
         paymentMethod: payment,
         powerSource: selectedItem,
-        status: "Approved",
+        status: "Pending",
         dateTime: reqDate,
         mainStatus: "Pending",
         username: currentUser,
@@ -152,8 +171,12 @@ useEffect(() => {
         macName: "",
         garageId: garageId,
         latitude: userLatitude,
-        logitude: userLongitude,
+        longitude: userLongitude,
         location: location,
+        phone: phoneNum,
+        requestId: ReqId,
+        rate: "0",
+        comment: "",
       });
       console.log(veheNum);
       handleItemPress(veheNum);
@@ -295,7 +318,17 @@ useEffect(() => {
         ]}
         onChangeText={(text) => setLocation(text)}
         value={location}
-        placeholder="Enter Vehicle Model"
+        placeholder="Enter Vehicle Location"
+      />
+      <Text style={styles.label}>Contact No:</Text>
+      <TextInput
+        style={[
+          styles.input,
+          !validation.location && styles.inputError, // Apply red border for validation failure
+        ]}
+        onChangeText={(text) => setPhone(text)}
+        value={phoneNum}
+        placeholder="Enter Phone Number"
       />
 
       <Text style={styles.label}>Matter:</Text>
