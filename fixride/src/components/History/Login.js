@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity,TextInput,StyleSheet} from 'react-native'
+import { View, Text, ImageBackground ,TouchableOpacity,TextInput,StyleSheet,Image} from 'react-native'
 import React, {useState} from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { firebase } from '../../config/firebase';
@@ -30,7 +30,12 @@ const forgetPassword = () => {
 }
 
 return(
+  
     <View style={styles.container}>
+       <Image
+        source={require('../../../assets/applogo.jpg')} // Replace with your image path
+        style={styles.logo}
+      />
         <Text style={{fontWeight:'bold',fontSize:26,textAlign:'center'}}>Login</Text>
 <View style={{marginTop:40,alignItems:'center'}}>
     <TextInput
@@ -98,7 +103,7 @@ export default Login
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        marginTop:100,
+        marginTop:60,
     },
     textInput:{
         paddingTop:20,
@@ -147,5 +152,12 @@ const styles = StyleSheet.create({
     showButton: {
       position: 'absolute',
       right: 15,
+    },
+    logo: {
+      width: 150, // Adjust the width and height as needed
+      height: 150,
+      marginBottom: 20,
+      alignSelf:'center',
+      borderRadius:200,
     },
 })

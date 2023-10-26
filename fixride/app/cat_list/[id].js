@@ -31,7 +31,7 @@ const DisplayContent = () => {
 
   const { cardid } = route.params;
   let cardId = cardid;
-
+console.log("chc11",cardId)
   imageSource = require("../../assets/Picture2.png");
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const DisplayContent = () => {
       );
       const unsubscribe = onSnapshot(usersQuery, (snapshot) => {
         let usersList = [];
-        console.log("location:",userLocation)
+        console.log("location11:",userLocation)
 
         snapshot.forEach((doc) => {
           const garageData = doc.data();

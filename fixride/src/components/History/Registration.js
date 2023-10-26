@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity,TextInput,StyleSheet,Alert } from 'react-native'
+import { View, Text, Image, TouchableOpacity,TextInput,StyleSheet,Alert } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { firebase } from '../../config/firebase';
 import { Picker } from '@react-native-picker/picker';
@@ -122,10 +122,15 @@ const Registration = () => {
     return(
       <ScrollView>
       <View style={styles.container}>
+      <Image
+        source={require('../../../assets/applogo.jpg')} // Replace with your image path
+        style={styles.logo}
+      />
         <Text style={{fontWeight:'bold',fontSize:23}}>
           Sign Up
 
         </Text>
+        
         <View style={{marginTop:40}}>
           <TextInput
           style={styles.textInput}
@@ -315,5 +320,12 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: "red",
+  },
+  logo: {
+    width: 150, // Adjust the width and height as needed
+    height: 150,
+    marginBottom: 20,
+    alignSelf:'center',
+    borderRadius:200,
   },
 })

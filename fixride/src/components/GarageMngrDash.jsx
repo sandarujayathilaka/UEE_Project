@@ -104,33 +104,44 @@ useEffect(()=>{
   })
 },[])
 
-  const handleCardClick = (id) => {
-    switch (id) {
-      case 'addGarage':
-        navigation.navigate("AddGarage");
-        break;
-      case 'addMechanic':
-        //router.push(`/add-mechanic/add`);
-        navigation.navigate("AddMechanic");
-        break;
-      case 'ReqList':
-    // ReqList    router.push(`/req-list/reqlist`);
-    navigation.navigate("ReqList");
-        break;
-      
-        case 'Change':
-          changePassword();
-          break;
-          case 'Delete':
-            setDeleteModalVisible(true);
-            break;
-            case 'SignOut':
-              firebase.auth().signOut()
-            break;
-          default:
-        break;
-    }
-  };
+const handleCardClick = (id) => {
+  switch (id) {
+    case 'addGarage':
+      // Check if a record with a matching email exists in the garage collection
+      firebase.firestore().collection('garage')
+        .where('email', '==', name.email)
+        .get()
+        .then((snapshot) => {
+          if (!snapshot.empty) {
+            alert('A garage with the same email already exists. You cannot add a new garage.');
+          } else {
+            navigation.navigate('AddGarage', { email: name.email });
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+      break;
+    case 'addMechanic':
+      navigation.navigate('AddMechanic');
+      break;
+    case 'ReqList':
+      navigation.navigate('ReqList');
+      break;
+    case 'Change':
+      changePassword();
+      break;
+    case 'Delete':
+      setDeleteModalVisible(true);
+      break;
+    case 'SignOut':
+      firebase.auth().signOut();
+      break;
+    default:
+      break;
+  }
+};
+
 
   return (
     <ScrollView>

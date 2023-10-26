@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { db } from "../../src/config/firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc,getDoc } from "firebase/firestore";
 import Modal from "react-native-modal";
 import { useNavigation } from "@react-navigation/native";
 
@@ -22,10 +22,11 @@ const PaymentPortal = (props) => {
   const [cardNumber, setCardNumber] = useState("");
   const [expiration, setExpiration] = useState("");
   const [cvv, setCVV] = useState("");
+  const [garageid, setGarageId] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
   const payimage = require("../../assets/payimage.png");
-
+  const navigation = useNavigation();
   const validateCard = (text) => /^[0-9]{16}$/.test(text);
   const validateExpiration = (text) => /^([0-9]{2})\/([0-9]{2})$/.test(text);
   const validateCVV = (text) => /^[0-9]{3,4}$/.test(text);
@@ -43,11 +44,23 @@ const PaymentPortal = (props) => {
     try {
       console.log(RequestId);
       const requestDocRef = doc(db, "request", RequestId);
+      const docSnapshot = await getDoc(requestDocRef);
 
+      // Check if the document exists and then destructure its data
+      if (docSnapshot.exists()) {
+        const { garageId } = docSnapshot.data();
+        setGarageId(garageId)
+        // Now you can use the destructured attributes
+        console.log('attribute1:', garageId);
+     
+      } else {
+        console.log('Document does not exist.');
+      }
       await updateDoc(requestDocRef, {
         payStatus: "Paid",
         mainStatus: "Completed",
       });
+     
       setIsModalVisible(true);
       console.log("Payment successful!");
     } catch (error) {
@@ -55,6 +68,13 @@ const PaymentPortal = (props) => {
     }
   };
 
+  const handleOk = () => {
+       
+    setIsModalVisible(false);
+    navigation.navigate("Feedback",{id:RequestId,garageid:garageid})
+  };
+
+ 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.heading}>Card Payment </Text>
@@ -154,7 +174,7 @@ const PaymentPortal = (props) => {
           <Text style={styles.modalText}>Payment Success</Text>
           <TouchableOpacity
             style={styles.modalButton}
-            onPress={() => setIsModalVisible(false)}
+            onPress={handleOk}
           >
             <Text style={styles.modalButtonText}>OK</Text>
           </TouchableOpacity>

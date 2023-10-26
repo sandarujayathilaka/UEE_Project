@@ -11,7 +11,7 @@ import {
   Image,
 } from "react-native";
 import { RadioButton } from "react-native-paper";
-import { db } from "../config/firebase";
+import { db,firebase } from "../config/firebase";
 import { router } from "expo-router";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
@@ -38,6 +38,7 @@ const RequestForm = (props) => {
   const [currentUser, setUser] = useState("");
   const [location, setLocation] = useState("");
    const [errorMessage, setErrorMessage] = useState("");
+   const [name, setName] = useState('');
    const [validation, setValidation] = useState({
      veheNum: true,
      model: true,
@@ -45,13 +46,28 @@ const RequestForm = (props) => {
      location: true,
    });
 
+   useEffect(()=>{
+    firebase.firestore().collection('users')
+    .doc(firebase.auth().currentUser.uid).get()
+    .then((snapshot)=>{
+      if(snapshot.exists){
+        setName(snapshot.data())
+      }
+      else{
+        console.log('User does not exist');
+      }
+    }).catch((error)=>{
+      alert(error);
+    })
+  },[])
+
 useEffect(() => {
   // Get the current date and time when the component mounts
   const currentDate = new Date();
   const formattedDate = currentDate.toISOString();
   setDateTime(formattedDate);
   setUser("Sandaru");
-
+console.log(name.firstname);
   // Replace "YOUR_API_KEY" with your actual Google Maps Geocoding API key
   const apiKey = "AIzaSyACdwaw1h6cATe6laoMWoayEniMemjgVkE";
 
@@ -96,7 +112,7 @@ useEffect(() => {
         const reader = new FileReader();
         reader.onload = async () => {
           const base64data = reader.result.split(",")[1]; // Extract the base64 string
-
+          console.log("c1",currentUser);
           // Add the data to Firestore
           await addDoc(requestDb, {
             vehicleNo: veheNum,
@@ -119,7 +135,7 @@ useEffect(() => {
             macName: "",
             garageId: garageId,
             latitude: userLatitude,
-            logitude:userLongitude,
+            longitude:userLongitude,
             location:location
           });
           console.log(veheNum);
@@ -248,7 +264,7 @@ useEffect(() => {
   //   console.log(`Clicked with form ${id}`);
   // };
   const handleItemPress = (id) => {
-    
+    console.log("c2",currentUser);
     navigation.navigate("Req_details", { Requestid:id,
        Date: reqDate,
           Num: veheNum,
