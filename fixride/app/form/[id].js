@@ -9,7 +9,7 @@ export default function Form() {
   //  const garageId = params.id;
 
    const route = useRoute();
-   const { garageid } = route.params;
+   const { garageid,phone,firstname } = route.params;
    console.log("1", garageid);
    let garageId = garageid;
    console.log("2", garageId);
@@ -28,7 +28,7 @@ export default function Form() {
 
   return (
     <View>
-      <RequestForm garageId={garageId} userLatitude={userLatitude} userLongitude={userLongitude} garageName={garageName} />
+      <RequestForm garageId={garageId} userLatitude={userLatitude} userLongitude={userLongitude} phone={phone} firstname={firstname} garageName={garageName} />
     </View>
   );
 }

@@ -131,7 +131,6 @@ function App() {
         userType === "User" ? (
           <Stack.Navigator>
             <Stack.Screen name="FIXRIDE" component={HomeTabs} />
-           
 
             <Stack.Screen name="MyActivity" component={MyActivity} />
             <Stack.Screen name="TrackLive" component={TrackLive} />
@@ -244,10 +243,13 @@ function App() {
             <Stack.Screen name="JobOverview" component={JobOverview} />
             <Stack.Screen name="JobStatusUpdate" component={JobStatusUpdate} />
             <Stack.Screen name="Report" component={Report} />
-            <Stack.Screen name="MechStatusUpdate" component={MechStatusUpdate} />
+            <Stack.Screen
+              name="MechStatusUpdate"
+              component={MechStatusUpdate}
+            />
             <Stack.Screen name="Home" component={Home} />
 
-<Stack.Screen name="ChooseLocation" component={ChooseLocation} />
+            <Stack.Screen name="ChooseLocation" component={ChooseLocation} />
 
             {/* Define other Mechanic related screens */}
           </Stack.Navigator>
